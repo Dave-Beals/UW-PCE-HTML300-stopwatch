@@ -1,6 +1,8 @@
 // button controls
 const start = document.querySelector('button.start')
 const stop = document.querySelector('button.stop')
+const lap = document.querySelector('button.lap')
+const reset = document.querySelector('button.reset')
 
 //DOM elements that I need to update
 const lapList = document.querySelector('#lapList') //finds first element with id "lapList"
@@ -12,7 +14,7 @@ const intervalRate = 10 //update the stopwatch every 10 milliseconds
 
 //values that will change pretty often
 let intervalId = null // variable for an interval. this is just a place to put it
-let rawTime = 0
+let rawTime = 0 //rawTime is the milliseconds that the stopwatch has run, to be prettied up through formatTime()
 
 // turns the time into a human readable format
 function formatTime (raw) {
@@ -41,6 +43,22 @@ function stopwatchUpdate() {
   stopwatchTime.innerHTML = formatTime(rawTime)
 }
 
+function recordLap(event) {
+  event.preventDefault()
+  console.log(formatTime(rawTime))
+  laps.push(formatTime(rawTime))
+
+  presentTime()
+}
+
+function presentTime(){
+  var parent = document.getElementById("lapList")
+  for(var i = 0; i < laps.length; i++)
+    var lapTime = document.createElement("li")
+    lapTime.innerHTML = formatTime(rawTime)
+    parent.appendChild(lapTime)
+}
+
 //stops the stopwatch by clearing the interval
 function stopwatchStop(event) {
   event.preventDefault()
@@ -61,4 +79,5 @@ document.addEventListener("DOMContentLoaded", function () {
 //below is -> eventListener is waiting on a click on the start button to pass on the stopwatchStart function. Line below is same but for stop
   start.addEventListener("click", stopwatchStart)
   stop.addEventListener("click", stopwatchStop)
+  lap.addEventListener("click", recordLap)
 })
