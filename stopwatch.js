@@ -71,6 +71,8 @@ function resetWatch(event) {
   for(var i = laps.length; i > 0; i--){
     laps.pop()
   }
+  stopwatchTime.innerHTML = "00:00:00"
+  document.getElementById("lapList").innerHTML = ""
 }
 
 // adds a leading zero because humans like them
