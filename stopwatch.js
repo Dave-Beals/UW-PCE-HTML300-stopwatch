@@ -67,6 +67,12 @@ function stopwatchStop(event) {
   clearInterval(intervalId)
 }
 
+function resetWatch(event) {
+  for(var i = laps.length; i > 0; i--){
+    laps.pop()
+  }
+}
+
 // adds a leading zero because humans like them
 function zeroPad (value) {
   let pad = value < 10 ? '0' : ''
@@ -80,4 +86,5 @@ document.addEventListener("DOMContentLoaded", function () {
   start.addEventListener("click", stopwatchStart)
   stop.addEventListener("click", stopwatchStop)
   lap.addEventListener("click", recordLap)
+  reset.addEventListener("click", resetWatch)
 })
